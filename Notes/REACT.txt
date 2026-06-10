@@ -1,0 +1,59 @@
+REACT
+
+
+- Virtual DOM: A virtual DOM is a lightweight JavaScript representation of the Document Object Model (DOM) used in declarative web frameworks
+
+- The Shadow DOM is a browser technology designed primarily for scoping variables and CSS in web components. The virtual DOM is a concept implemented by libraries in JavaScript on top of browser APIs.
+
+The virtual DOM (VDOM) is a programming concept where an ideal, or “virtual”, representation of a UI is kept in memory and synced with the “real” DOM by a library such as ReactDOM. This process is called reconciliation.
+
+React Fiber is the new reconciliation engine in React 16. Its main goal is to enable incremental rendering of the virtual DOM.
+
+
+React Lifecycle Methods:
+
+Mounting : component created
+
+Methods:
+constructor()
+render()
+componentDidMount()
+
+
+Updating: 
+
+(Component re-renders)
+
+Occurs when: Props change , State changes
+
+Methods: shouldComponentUpdate() , componentDidUpdate()
+
+
+Unmounting:
+
+(Component removed)
+
+Method: componentWillUnmount()
+
+Lifecycle methods exist mainly in class components. In functional components, we use React Hooks like useEffect().
+
+
+Controlled Component:  when the important information in it is driven by props rather than its own local state.  This lets the parent component fully specify its behavior. 
+
+
+Uncontrolled components are easier to use within their parents because they require less configuration. But they’re less flexible when you want to coordinate them together. 
+
+ A Higher-Order Component is a function that takes a component and returns a new component.
+Technique for reusing component logic in React.
+
+
+Pure Components:
+
+It does not change any objects or variables that existed before it was called.
+Same inputs, same output.
+
+
+Fragment
+
+Wrap elements in <Fragment> to group them together in situations where you need a single element. Grouping elements in Fragment has no effect on the resulting DOM; it is the same as if the elements were not grouped. The empty JSX tag <></> is shorthand for <Fragment></Fragment> in most cases.
+

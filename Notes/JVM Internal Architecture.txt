@@ -1,0 +1,133 @@
+JVM Internal Architecture
+
+Three mechanisms in JVM:
+
+ClassLoader (responsible for loading class files into the memory area)
+Memory Area 
+Execution Engine
+
+
+Classloader includes 3 main steps:
+
+1. Loading: 
+
+Reads .class files and stores class metadata in the Method Area.
+Creates a class object in the heap representing the loaded class.
+
+This class type will be created only the very first time the class is loaded to the JVM.
+
+2. Linking: linking data in class files into the memory area. 
+
+Verification : It ensures bytecode follows JVM rules and is safe to execute.
+
+Preparation : Allocates memory for static variables and assign values. and assign default values. like 0 for int, null for objects.
+
+Resolution : Converts symbolic references into direct references in memory.
+
+When considering security threads, there is a possibility that some programs like malware can change or add some content to the class file. In this case, it will be identified by the byte code verifier and throw an exception called “verify exception”.
+
+3. Initialization: 
+
+Actual values are assigned to all static and instance variables. 
+Executes static blocks defined in the class.
+Initialize class.
+Instantiation of sub-class.
+
+Class Loader Types:
+
+Bootstrap Class Loader: Loads core Java classes. (represented as null) (written in native code)
+Platform/Extension Class Loader: Loads classes from extensions directory.
+System/Application C L : Loads Application from classpath, module path.
+
+
+Class Loader Delegation in JVM
+
+delegation model means that the ClassLoader class delegates the search for a class or resource to its parent class loader before it tries to find the class or resource itself
+
+1. JVM asks the application class loader to load the classes. Application class loader will delegate to its parent in the delegation hierarchy the extension class loader.
+
+2. Extension class loader will delegate to its parent Bootstrap class loader.
+
+3. Now the Bootstrap class loader may load the classes from the java runtime (JRE/lib/rt.jar). Bootstrap loads the classes found and if bootstrap class loader fails to load some classes it will fail and pass on the class loader to its child class loader Extension class loader. 
+
+4. Now extension class loader will try to load the classes from the extension directory and it will load those classes found on the extension path and if it fails to load some classes it will pass on the class loader to its child in the delegation calls to the application class loader.
+
+5. Now application class loader will try to load all remaining classes left unloaded by the parents, and if it loads all classes program runs successfully, however, on the other hand, it fails to load any remaining class the ClassDefNotFound Exception will be thrown and the program won’t run. 
+
+
+
+Memory Area :
+
+Method Area : Stores class-level information, static variables, final variables. 
+Heap Area : Stores all objects
+Stack Area : Separate Stack areas for each thread. Hold methods variables etc. ; LIFO structure.
+PC register: (Program Counter) holds the address of the currently executing instruction for each thread.
+Native Method Stacks: Each thread has a separate stack for native method execution.
+
+
+Execution Engine :
+
+Executes the .class (bytecode) file. Three Main components : Interpreter, JIT Compiler, Garbage Collector.
+
+Interpreter: Interprets the bytecode line-by-line and then executes. Disadvantage here is that when one method is called multiple times, every time interpretation is required.
+
+JIT Compiler: 
+
+To increase the efficiency of interpreter. 
+It compiles the bytecode and changes it to native code so whenever the interpreter sees repeated method calls, JIT provides direct native code for that part from the cache.
+
+Garbage Collector: 
+
+Removes unused objects from heap memory.
+Destroys un-referenced objects. 
+
+It first identifies the unused object and then removes it.
+
+
+Java Native interface
+
+Interacts with Native Method libraries required for execution.
+Enables JVM to call C/C++ libraries.
+
+
+
+Class Loader
+
+
+We can extend the java.lang.ClassLoader abstract class to create class loader implementations.
+
+getClassLoader() method can be used to find the class loader.
+
+an array class has no class loader if the element type is a primitive data type.
+
+
+The loadClass(String name, boolean resolve) method is responsible for loading the class definition into runtime using its binary name
+
+When the JVM requests a class, the class loader tries to locate the class and load the class definition into the runtime using the fully qualified class name. 
+
+Order or search:
+calls findLoadedClass(). checks if the class has been already loaded, returns binary if found otherwise returns null.
+calls loadClass() , on parent loader.
+calls findClass() to find the class.
+
+As a result of the ordered search, if it doesn’t find the class and additionally we have set the resolve flag to true, it calls the resolveClass(Class) method on the resulting binary Class object.
+if the class is not found, it throws java.lang.ClassNotFoundException.
+
+
+child class loaders can see the classes loaded by their parents, but parent class loaders cannot see classes loaded by their children.
+
+
+Custom Class Loader
+
+in scenarios where we need to load classes out of the local hard drive or a network, we may need to make use of custom class loaders.
+
+For creating custom class loader:
+
+extend the ClassLoader class and override the findClass() method.
+inside findClass() , return using defineClass();
+
+
+in loadClass() , If we only need to determine if the class exists or not, then we set the resolve parameter to false.
+
+definceClass() : This method is responsible for the conversion of an array of bytes into an instance of a class.
+

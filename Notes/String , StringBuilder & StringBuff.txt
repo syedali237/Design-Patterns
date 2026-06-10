@@ -1,0 +1,71 @@
+eString , StringBuilder & StringBuffer in Java
+
+String:
+
+Immutable
+Thread-Safe. Allowing safe access my multiple-threads without synchronization.
+Implements 3 important interfaces: CharSequence, Comparable<String>, Serializable
+can be constructed using new keyword, from char Array, from byte array.
+slow because it creates an object each time.
+
+-----------------------
+
+When we create a String using double quotes, JVM first looks for the String with the same value in the string pool. 
+
+If found, it returns the reference of the string object from the pool.
+
+Otherwise, it creates the String object in the String pool and returns the reference. 
+
+JVM saves a lot of memory by using the same String in different threads.
+
+---------------------
+
+If new operator is used to create a string, it gets created in heap memory.
+
+-----------
+
++ to concatenate . Internally, it uses StringBuffer to perform this action.
+
+-----------
+
+equals() : true , when both references are pointing to same object.
+
+-------------
+
+hashCode(): returns hash code of object.
+
+if two objects are equal according to equals() method, their hash code must be same.
+if unequal, then their hash code may or may not be equal.
+
+When we override equals() method, it's almost necessary to override the hashCode() method too, so that their contract is not violated.
+
+-----
+
+To avoid hash collision in hashmap, we use Prime Numbers to generate hash code so map entries are properly distributed across all the buckets.
+
+
+If we are not using any Hash Based Collections, then we can leave overriding hashcode() and only override equals().
+
+----------------
+
+
+
+
+--------------------
+
+StringBuilder:
+
+Mutable (allows modification of string without creating new objects)
+Memory efficient
+No thread-safety.
+Not synchronized. Better in single-threaded application.
+StringBuilder better performance than StringBuffer.
+
+---------------------------
+
+StringBuffer:
+
+Mutable
+Thread-Safe
+Slower due to synchronization overhead.
+Multi-threaded.

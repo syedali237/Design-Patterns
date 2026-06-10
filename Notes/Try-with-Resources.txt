@@ -1,0 +1,47 @@
+Try-with-Resources
+
+- introduced in Java 7.
+- allows us to be used in a try block with the assurance that resource will be closed after execution.
+
+Resources declared need to implement the AutoCloseable interface.
+
+For it to be auto-close, just declare resource inside try.
+It replaces the try-catch-finally.
+
+We can declare multiple resources just fine in a try-with-resources block by separating them with a semicolon.
+
+To construct a custom resource that will be correctly handled by a try-with-resources block, the class should implement the Closeable or AutoCloseable interfaces and override the close method.
+
+public class MyResource implements AutoCloseable {
+    @Override
+    public void close() throws Exception {
+        System.out.println("Closed MyResource");
+    }
+}
+
+
+A try-with-resources block can still have the catch and finally blocks, which will work in the same way as with a traditional try block.
+
+
+Anti Patterns
+
+Swallowing Exceptions
+
+public int getPlayerScore(String playerFile) {
+    try {
+        // ...
+    } catch (Exception e) {} // <== catch and swallow
+    return 0;
+}
+
+Another way we can “swallow” an exception is to print out the exception to the error stream simply:
+
+public int getPlayerScore(String playerFile) {
+    try {
+        // ...
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return 0;
+}
+

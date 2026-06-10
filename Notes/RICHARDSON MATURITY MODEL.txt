@@ -1,0 +1,32 @@
+RICHARDSON MATURITY MODEL
+
+
+Breaks down the principle elements of a REST approach into three steps.
+Introduce resources, http verbs & hypermedia controls.
+
+
+Level 0 (Swamp of Plain Old XML - POX):
+
+Using HTTP as a transport system for remote interactions, but without using any of the mechanisms of the web.
+
+Level 1 (Resources)
+
+Rather making all requests to a singular endpoint, we talk to individual resources.
+
+Level 2 (HTTP Verbs)
+
+Using HTTP verbs as closely as possible to how they are used in HTTP
+
+Level 3 (Hypermedia Controls)
+
+Refers to HATEOAS (Hypertext As The Engine of Application State).
+How to get from a list of open slots to knowing what to do to book an appointment.
+
+
+Level 1 tackles the question of handling complexity by using divide and conquer, breaking a large service endpoint down into multiple resources.
+Level 2 introduces a standard set of verbs so that we handle similar situations in the same way, removing unnecessary variation.
+Level 3 introduces discoverability, providing a way of making a protocol more self-documenting.
+
+
+
+

@@ -1,0 +1,61 @@
+SPRING SECURITY
+
+Works in a self-contained manner, which means that every file that is needed by spring security framework is present in your application and no need for any special configuration.
+
+In Technical terms, spring-security for web application is nothing but a chain of servlet filters that are stacked on one another in a specified order depending on the security needs of an application.
+
+So authentication in lay man's language is when a person tries to access some resources(data) that is restricted then he/she needs to get identified and verified so that the system can confirm whether the user is actually the right person to do so.
+
+Authorization is determining the extent of a user to access the restricted resources. The application ensures that the user is only allowed to access parts of the resource that he/she is allowed to.
+
+
+
+Core Classes & Interfaces
+
+Authentication Filter:
+
+intercepts requests and attempts to authenticate it. In Spring Security, it converts the request to an Authentication Object and delegates the authentication to the AuthenticationManager
+
+AuthenticationManager : 
+
+It is a core interface that spring security uses for the authentication process. It has only one method authenticate which when implemented in a class that implements an Authentication Manager has all the logic for authenticating a user request.
+
+The authenticate method takes an “Authentication” object as its parameter and returns an “Authentication” object on successful authentication of the user or else we can have an exception thrown indicating that the user is not authenticated.
+
+Authentication
+
+Core interface that represents security information (Principal, credentials, Authority list, etc.) in a spring security manner.
+
+Common used implementation interface is : "UsernamePasswordAuthenticationToken"
+
+Not a direct  sub-class of Authentication, but is a child of an abstract class that implements an "Authentication" interface.
+
+UserDetailService
+
+used to return the "UserDetails" object.
+
+It has one method loadUserByUsername(String userName). As you can see it takes one String-based argument username and it returns a “UserDetails” object.
+
+The only purpose of “UserDetailsService” is to provide a “UserDetails” object to other components.
+
+UserDetails
+
+holds information regarding a particular user.
+
+GrantedAuthority
+
+interface that represents authorities that are granted to the user.
+
+SecurityContextHolder
+
+store "SecurityContext" information
+
+SecurityContext: Information that represents the Authentication and Authorization information of the user.
+
+“SecurityContextHolder” uses “ThreadLocal” variables to store user information and so handles multiple requests that work in a multi-threaded environment in which each thread consists of the “SecurityContext” information.
+
+And in “SecurityContext” security information is represented in the form of an “Authentication” object which in turn stores the information in the form of the “UserDetails” object that actually represents user information in the framework.
+
+
+
+

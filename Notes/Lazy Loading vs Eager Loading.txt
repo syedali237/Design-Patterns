@@ -1,0 +1,99 @@
+Lazy Loading v/s Eager Loading | Transactional
+
+
+Lazy Loading
+
+Advantages:
+Less memory consumption.
+smaller initial load time.
+
+Disadvantages:
+Deferred initialization might introduce delay and impact performance.
+LazyInitializationException might cause if an entity is being accessed before being initialized.
+
+Eager Loading
+
+Advantages:
+Avoids delay and the related performance.
+Always used with @ManyToOne and @OneToOne
+
+Disadvantages:
+Long initial loading time.
+Loading too much unnecessary data might impact performance.
+
+
+By default JPA fetchType :
+
+@OneToMany and @ManyToMany --> FetchType.LAZY strategy.
+@OneToOne and @ManyToOne --> FetchType.EAGER strategy.
+
+
+Pagination:
+
+extend PagingAndSortingRepository
+
+Create or obtain a PageRequest object, which is an implementation of the Pageable interface
+Pass the PageRequest object as an argument to the repository method we intend to use
+
+We can create a PageRequest object by passing in the requested page number and the page size.
+
+Pageable firstPageWithTwoElements = PageRequest.of(0, 2);
+
+Pageable secondPageWithFiveElements = PageRequest.of(1, 5);
+
+
+Can add sorting as well
+
+Pageable sortedByName =
+  PageRequest.of(0, 3, Sort.by("name"));
+
+Pageable sortedByPriceDesc =
+  PageRequest.of(0, 3, Sort.by("price").descending());
+
+
+
+@Transactional:
+
+to wrap a method in database transactional.
+
+Spring applies the class-level annotations to all the public methods but will ignore private/protected methods if we put annotation over it without any error.
+
+
+
+Transaction Propagation :
+
+Propagation defines our business logic's transaction boundary.
+
+Spring manages to start and pause a transaction according to our propagation setting.
+
+REQUIRED Propagation:
+
+Default propagation.
+Spring checks for any active transaction and if nothing exists, it creates a new one.
+Otherwise, the business logic appends to the currently active transaction.
+
+SUPPORTS Propagation
+
+If an active transaction exists, then it will be used.
+If there isn't a transaction, it is executed non-transactional (empty transaction)
+
+MANDATORY Propagation
+
+If there is an active transaction, it will be used.
+Otherwise, spring throws an exception.
+
+NEVER Propagation
+
+If there's an active transaction, spring throws an exception.
+
+NOT_SUPPORTED Propagation
+
+If a current transaction exists, first Spring suspends it, and then the business logic is executed without a transaction.
+
+REQUIRES_NEW
+
+Spring suspends the current transaction if it exists, and then creates a new one.
+
+NESTED Propagation
+
+For NESTED propagation, Spring checks if a transaction exists, and if so, it marks a save point. This means that if our business logic execution throws an exception, then the transaction rollbacks to this save point. If there’s no active transaction, it works like REQUIRED.

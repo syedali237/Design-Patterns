@@ -1,0 +1,45 @@
+JPA Annotations
+
+Entity: POJOs representing data that can be persisted in the database. 
+
+An entity represents a table stored in a database.
+Every instance of an entity represents a row in the table.
+@Entity annotation can be used for defining POJO (data to store it in DB)
+
+@Id : defines the primary key. 
+@GeneratedValue() : 
+
+We can generate the identifiers in different ways, which are specified by the @GeneratedValue annotation.
+
+We can choose from four id generation strategies with the strategy element. The value can be AUTO, TABLE, SEQUENCE, or IDENTITY.
+
+@Table : to specify table name
+@Table(name = " " , schema = " ")
+
+if we don't use @Table , name of table will be the name of entity.
+
+@Column : to mention details of a column in a table.
+
+Eg:
+
+@Column(name="STUDENT"  , length=50, nullable=false, unique = false)
+private String name;
+
+
+if we don't specify then name of column would be name of field
+
+@Transient : to make a field non-persistent that is not to be stored in DB.
+
+for example : age from date of birth , age should not be stored but calculated.
+
+
+@Temporal : store temporary values
+
+
+@Enumerated annotation to specify whether the enum should be persisted by name or by ordinal (default).
+
+
+
+
+
+

@@ -1,0 +1,66 @@
+Abstract, Inner Classes in Java
+
+
+Abstract Class
+
+Cannot be instantiated directly.
+Purpose is to ensure that concrete sub types must be created from it in order to create objects.
+Non-private, non-static methods can be simply declared without any definition. (Abstract methods: such methods must be implemented by concrete subclasses of the abstract class).
+An abstract class can have zero abstract methods , but if a class contains at least one abstract method then it is an abstract class.
+
+Inner Class
+
+Non-static class written inside a non-static class, such nested classes are called Inner Classes in Java.
+Object of an inner class always requires object of its enclosing outer class.
+Fields and methods of inner class will first be resolved before proceeding to searching for the field w.r.t. the hierarchy of outer.
+
+Idea of inner classes were used earlier in Java to create callbacks.
+Works well for implementing a data structure like iterator.
+
+Disadvantage:
+Complex.
+
+The JVM needs to create class files for the classes, in the compiled code there are only outer classes, there are no inner classes. To achieve this, the JVM will have to provide getters and setters for fields of the objects of the outer class that are accessed by the methods of the inner class etc. This can lead to security issues.
+
+Nested Static Class
+
+Can be defined inside a non-static outer class in Java.
+Objects of nested static class do not contain reference to the outer class object. (They are INDEPENDENT).
+
+Local Inner Class
+
+A non-static class written inside a block (usually method) of the non-static outer class.
+
+class A {
+	void method(){
+		
+		class B{ } // local inner class
+	}
+}
+
+Local variables are allocated memory but their life only persists till the program execution is inside the block.
+
+To handle inconsistencies in handling write operation on such variables Java decided to allow only the local variables that are read only or effectively final to be used by Local Inner Class.
+
+
+Anonymous Inner Class
+
+A class that extends another class or a class that implements an interface.
+Have no name , they are special kind of local inner class.
+No name since we do not want to reuse the class several times.
+
+when an anonymous class is written inside a static method of a non static outer class the anonymous class can only have access to the local variables in the block and the static variables defined in the enclosing class hierarchy.
+
+Nowadays, Lambda Expressions are used instead of Anonymous Inner Classes for creating such callbacks.
+
+
+Initialisation Block in Java
+
+We can have instance initialisation blocks to initialise the fields defined on the object.
+Static initialisation blocks can also be used to initialise static variables when the class is loaded.
+Can me multiple blocks inside class.
+Executed in same order in which they appear in the source code
+Instance initialisation blocks are executed before constructor calls.
+
+
+

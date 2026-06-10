@@ -1,0 +1,13 @@
+REST
+
+
+Representational State Transfer
+Approach for building web based APIs
+
+An architectural style.
+A web API following REST architectural style is called REST API.
+
+6 Guiding Principles of REST:
+
+Uniform Interface : to simplify overall system architecture and improve visibility. (simply defines consistent and uniform interface for interactions between client and servers).
+Client-Server:

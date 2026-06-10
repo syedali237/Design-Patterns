@@ -1,0 +1,96 @@
+SPRING LEARNING MODULE
+
+I. Spring Framework and Spring Boot Basics
+
+Intro to Spring Framework
+Advantages of Spring
+Spring core : Bean, BeanFactory, ApplicationContext
+Setter Based DI , Constructor Based DI
+IoC Overview
+Core annotations: @Component, @Service, @Repository, @Controller.
+Configuration: @Configuration, @Bean, @Scope, @Lazy
+Defining beans using Annotation or Java-based configuration.
+Bean lifecycle management with @PostConstruct and @PreDestroy.
+Custom init and destroy methods with BeanPostProcessor.
+Scopes: Singleton, Prototype, and web-specific scopes.
+Autowiring (@Autowired)
+Injecting dependencies using @Qualifier for resolving bean conflicts.
+Using the @Profile annotation for beans.
+Using SpEL with the @Value annotation.
+
+II. Spring Data JPA
+
+Core concepts: What is Spring Data JPA?
+Advantages: Simplified repository interface, query derivation, transaction management, integration with JPA/Hibernate.
+Differences: Spring Data, JPA, and Hibernate.
+Extending JpaRepository, CrudRepository, or PagingAndSortingRepository.
+Default CRUD methods: save, findById, delete, etc.
+Query creation with derived methods (findByName, countBy, existsBy).
+Using @Query annotation for JPQL and native SQL queries.
+JPA annotation essentials: @Entity, @Table, @Id, @GeneratedValue, etc.
+Mapping fields with @Column.
+Using embedded classes with @Embeddable.
+Storing enumerations with @Enumerated.
+Defining One-to-One, One-to-Many, Many-to-Many relationships.
+Handling lazy/eager fetching.
+Configuring @JoinTable, bidirectional vs unidirectional relationships.
+Cascade types (ALL, PERSIST, MERGE, etc.).
+Managing transactions with @Transactional.
+Transaction propagation settings (REQUIRED, MANDATORY, etc.)
+Derived query methods by naming strategies (findByAgeGreaterThan, findByNameIgnoreCase).
+Building dynamic queries using Specifications (JpaSpecificationExecutor).
+Combining multiple specifications and using the Criteria API for complex queries.
+
+III. Restful Web Services with Spring REST
+
+What is REST?
+Key principles: Statelessness, client-server separation, uniform interface.
+Overview of Spring Framework’s support for REST API development.
+Adding the spring-boot-starter-web dependency via Maven/Gradle.
+Configuring properties in application.properties or application.yml.
+Running REST APIs on an embedded Tomcat server.
+Richardson Maturity Model
+Creating REST controllers using @RestController.
+Mapping URLs with @RequestMapping, @GetMapping, @PostMapping, etc.
+Handling request parameters with @RequestParam and @PathVariable.
+Accepting JSON data with @RequestBody.
+Handling request bodies with @RequestBody.
+Returning JSON or XML responses with Jackson.
+Using ResponseEntity for fine control over HTTP responses and status codes.
+Adding custom HTTP headers.
+Handling exceptions globally with @RestControllerAdvice and @ExceptionHandler.
+Validating request bodies and handling validation exceptions using @Valid.
+Returning proper HTTP status codes (404, 400, 500) for error scenarios.
+Using Hibernate Validator annotations: @NotNull, @Size, @Email.
+Validating request bodies with @Valid.
+Creating custom validation rules using @Constraint.
+Create (POST), Read (GET), Update (PUT, PATCH), Delete (DELETE) APIs.
+Integrating repositories like JpaRepository with REST endpoints.
+Using Swagger/OpenAPI for automatic API documentation.
+Annotations like @Operation and @ApiResponses for API details.
+
+IV. Securing REST APIs with Spring Security and JWT
+
+What is Spring Security, and how does it provide authentication and authorization mechanisms?
+Why secure REST APIs: Prevention of unauthorized access and data protection during HTTP communication.
+Concept comparison: Authentication vs Authorization.
+Overview of HTTP Basic vs Bearer Token Authentication.
+Basics of JWT: What it is and its three parts (Header, Payload, Signature).
+Statelessness, compact structure, and its benefits in API security.
+Flow of JWT:
+User logs in with credentials.
+Server generates a JWT upon successful authentication.
+Client sends the token in the Authorization: Bearer <token> header for future requests.
+Server validates the token before granting access.
+Write a JWT utility class for token creation and validation.
+Methods to include: generateToken, validateToken, and extractUsername (from payload).
+Use the io.jsonwebtoken (jjwt) library.
+Integrate the custom authentication filter into the Spring Security filter chain.
+Use WebSecurityConfigurerAdapter or Spring Security 6+ filter chain methods.
+Build a /authenticate endpoint to validate user credentials and return a JWT.
+Create protected endpoints like /api/users/** and public ones like /api/auth/**.
+Validate tokens in the Authorization header for secured APIs
+Always use HTTPS for secure token transmission.
+Implement token expiration and refresh mechanisms.
+Store passwords securely using BCryptPasswordEncoder.
+Use @PreAuthorize annotations for role-based access control
